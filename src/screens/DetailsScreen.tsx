@@ -15,13 +15,16 @@ import { SIZES } from "../constants";
 const DetailsScreen = ({
   navigation,
   route: {
-    params: { id, img },
+    params: { id, img, price, title },
   },
 }: RootStackScreenProps<"Details">) => {
   const [productCount, setProductCount] = useState<number>(1);
+  // Sizes of Product
   const [size, setSize] = useState<string>(SIZES[0]);
   const { colors } = useTheme();
   const bottomSheetRef = useRef<BottomSheet>(null);
+
+  const [favorite, setFavorite] = useState(false);
 
   const insets = useSafeAreaInsets();
   return (
@@ -29,7 +32,9 @@ const DetailsScreen = ({
       {/* Background Image */}
       <Image
         source={{
-          uri: img || "https://plus.unsplash.com/premium_photo-1661645929465-dff3f6e7041e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8amFja2V0fGVufDB8fDB8fHww",
+          uri:
+            img ||
+            "https://plus.unsplash.com/premium_photo-1661645929465-dff3f6e7041e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8amFja2V0fGVufDB8fDB8fHww",
         }}
         resizeMode="cover"
         style={styles.bgImg}
@@ -38,12 +43,18 @@ const DetailsScreen = ({
         edges={["top"]}
         style={{ position: "absolute", top: 0, left: 0, right: 0 }}
       >
-        <StatusBar style={'light'} />
+        <StatusBar style={"light"} />
         {/* Header */}
         <View style={styles.header}>
           <IconBtn name={"arrow-back"} onPress={() => navigation.goBack()} />
           <View style={{ flex: 1 }} />
-          <IconBtn name={"favorite-border"} />
+          
+            {favorite ? (
+              <IconBtn name={"favorite"} color="red" onPress={() => setFavorite(!favorite)}/>
+            ) : (
+              <IconBtn name={"favorite-border"}  onPress={() => setFavorite(!favorite)}/>
+            )}
+          
           <IconBtn name={"add-shopping-cart"} />
         </View>
       </SafeAreaView>
@@ -59,12 +70,12 @@ const DetailsScreen = ({
           borderRadius: 24,
           backgroundColor: colors.background,
         }}
-        handleIndicatorStyle= {{ backgroundColor: colors.primary}}
+        handleIndicatorStyle={{ backgroundColor: colors.primary }}
         style={styles.bottomSheet}
       >
         <View style={styles.bottomSheetContainer}>
           <Text style={[styles.productTitle, { color: colors.text }]}>
-            PUMA Everyday Hussle
+            {title || "PUMA Everyday Hussle"}
           </Text>
           {/* Rating and counter Row */}
           <View style={styles.row}>
@@ -153,7 +164,7 @@ const DetailsScreen = ({
               Description
             </Text>
             <Text
-              style={{ color: colors.text, opacity: 0.75, }}
+              style={{ color: colors.text, opacity: 0.75 }}
               numberOfLines={3}
             >
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias
@@ -166,8 +177,10 @@ const DetailsScreen = ({
           {/* Add To Cart */}
           <View style={styles.addToCart}>
             <View style={styles.price}>
-                    <Text style={{color: colors.text, opacity: 0.75}}>Total</Text>
-                    <Text style={[styles.priceText, {color: colors.text}]}>${(2500).toLocaleString()}</Text>
+              <Text style={{ color: colors.text, opacity: 0.75 }}>Total</Text>
+              <Text style={[styles.priceText, { color: colors.text }]}>
+                {price || "$2400"}
+              </Text>
             </View>
             <TouchableOpacity
               style={[styles.addToCartBtn, { backgroundColor: colors.primary }]}
@@ -297,12 +310,12 @@ const styles = StyleSheet.create({
   // Total Price
   price: {
     flex: 1,
-    gap: 4 ,
+    gap: 4,
   },
   total: {},
   priceText: {
-    fontWeight: '600',
-    fontSize: 18, 
+    fontWeight: "600",
+    fontSize: 18,
   },
   addToCartBtn: {
     height: 64,
@@ -310,7 +323,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     position: "relative",
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 16,
     padding: 12,
   },

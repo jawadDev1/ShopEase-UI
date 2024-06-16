@@ -7,10 +7,12 @@ import HomeScreen from "../screens/HomeScreen";
 import Example from "../components/Example";
 import Icons from "@expo/vector-icons/MaterialIcons";
 import { CompositeScreenProps } from "@react-navigation/native";
-import { RootStackParamList } from "./RootNavigator";
 import { RootStackScreenProps } from "../../App";
 import CustomBottomTabs from "../components/CustomBottomTabs";
+import CartScreen from "../screens/CartScreen";
+import ProfileScreen from "../screens/ProfileScreen";
 
+// Tab Stack Screen Types
 export type TabsStackParamList = {
   Home: undefined;
   Cart: undefined;
@@ -20,6 +22,7 @@ export type TabsStackParamList = {
 
 const TabStack = createBottomTabNavigator<TabsStackParamList>();
 
+// Generic  for Tab Screens
 export type TabStackScreenProps<T extends keyof TabsStackParamList> =
   CompositeScreenProps<
     BottomTabScreenProps<TabsStackParamList, T>,
@@ -41,11 +44,12 @@ const TabsNavigator = () => {
       />
       <TabStack.Screen
         name="Cart"
-        component={Example}
+        component={CartScreen}
         options={{
           tabBarIcon: (props) => {
             return <Icons name="shopping-cart" {...props} />;
           },
+          headerShown: false
         }}
       />
       <TabStack.Screen
@@ -59,11 +63,12 @@ const TabsNavigator = () => {
       />
       <TabStack.Screen
         name="Profile"
-        component={Example}
+        component={ProfileScreen}
         options={{
           tabBarIcon: (props) => {
             return <Icons name="person" {...props} />;
           },
+          headerShown: false
         }}
       />
     </TabStack.Navigator>

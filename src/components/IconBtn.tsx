@@ -5,15 +5,17 @@ import Icons from "@expo/vector-icons/MaterialIcons";
 type IconBtnProps = {
     name: any,
     onPress?: () => void,
+    color?: string
 }
 
-const IconBtn = ({name, onPress}: IconBtnProps) => {
+const IconBtn = ({name, onPress, color}: IconBtnProps) => {
   return (
     <TouchableOpacity
     onPress={onPress}
     style={styles.iconBtn}
+    activeOpacity={0.6}
     >
-      <Icons name={name} size={24} color={'#fff'} />
+      <Icons name={name} size={29} color={color || '#fff'}  />
     </TouchableOpacity>
   )
 }

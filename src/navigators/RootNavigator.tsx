@@ -4,11 +4,14 @@ import DetailsScreen from "../screens/DetailsScreen";
 import { NavigatorScreenParams } from "@react-navigation/native";
 import TabsNavigator, { TabsStackParamList } from "./TabsNavigator";
 
+
 export type RootStackParamList = {
   TabsStack: NavigatorScreenParams<TabsStackParamList>;
   Details: {
     id: string;
     img?: string;
+    title?: string,
+    price?: string
   };
 };
 

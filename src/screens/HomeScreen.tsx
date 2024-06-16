@@ -23,8 +23,11 @@ import FilterView from "../components/FilterView";
 import { TabStackScreenProps } from "../navigators/TabsNavigator";
 
 const HomeScreen = ({ navigation }: TabStackScreenProps<"Home">) => {
+
   const { colors } = useTheme();
+  // Handle Selected Category
   const [categoryIndex, setCategoryIndex] = useState<number>(0);
+  
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
   const openFilterModal = useCallback(() => {
@@ -99,6 +102,7 @@ const HomeScreen = ({ navigation }: TabStackScreenProps<"Home">) => {
                 navigation.navigate("Details", {
                   id: "2332",
                   img: IMAGES.img1,
+                  
                 })
               }
             />
@@ -136,6 +140,7 @@ const HomeScreen = ({ navigation }: TabStackScreenProps<"Home">) => {
             gap: 12,
           }}
           data={CATEGORIES}
+          keyExtractor={(_, i): any => i.toString()}
           renderItem={({ item, index }) => {
             const isSelected = index == categoryIndex;
             return (
@@ -169,14 +174,19 @@ const HomeScreen = ({ navigation }: TabStackScreenProps<"Home">) => {
         {/* Mansory List */}
         <MasonryList
           data={PRODUCTS}
-          keyExtractor={(item): string => item}
+          keyExtractor={(item, i): string => i.toString()}
           numColumns={2}
           contentContainerStyle={{
             paddingHorizontal: 12,
           }}
           showsVerticalScrollIndicator={false}
           renderItem={({ item, i }: any) => (
-            <View style={{ padding: 6 }} key={i}>
+            <TouchableOpacity onPress={() => navigation.navigate('Details', {
+              id: "2332",
+              img: item.img,
+              title: item.title,
+              price: item.price
+            })} style={{ padding: 6 }} key={i}>
               <View
                 style={[
                   styles.mansoryCard,
@@ -217,7 +227,7 @@ const HomeScreen = ({ navigation }: TabStackScreenProps<"Home">) => {
                   </BlurView>
                 </View>
               </View>
-            </View>
+            </TouchableOpacity>
           )}
           onEndReachedThreshold={0.1}
         />
