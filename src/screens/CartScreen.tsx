@@ -15,8 +15,8 @@ const CartScreen = () => {
     >
       <Text style={styles.heading}>My Cart</Text>
 
-    <CartCard title={PRODUCTS[0].title} price={PRODUCTS[0].price} imgUrl={PRODUCTS[0].price}/>
-    <CartCard title={PRODUCTS[1].title} price={PRODUCTS[1].price} imgUrl={PRODUCTS[1].price}/>
+    <CartCard title={PRODUCTS[0].title} price={PRODUCTS[0].price} imgUrl={PRODUCTS[0].img}/>
+    <CartCard title={PRODUCTS[1].title} price={PRODUCTS[1].price} imgUrl={PRODUCTS[1].img}/>
 
     </SafeAreaView>
   );

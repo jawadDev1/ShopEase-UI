@@ -186,7 +186,7 @@ const HomeScreen = ({ navigation }: TabStackScreenProps<"Home">) => {
               img: item.img,
               title: item.title,
               price: item.price
-            })} style={{ padding: 6 }} key={i}>
+            })} style={{ padding: 6 }} key={i} activeOpacity={0.9}>
               <View
                 style={[
                   styles.mansoryCard,

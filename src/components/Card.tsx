@@ -8,7 +8,7 @@ type CardProps = {
 
 const Card = ({ imgUrl, onPress }: CardProps) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.card}>
+    <TouchableOpacity onPress={onPress} style={styles.card} activeOpacity={0.9}>
       <Image
         source={{ uri: imgUrl }}
         resizeMode="cover"
